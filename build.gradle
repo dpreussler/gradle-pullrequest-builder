@@ -1,0 +1,12 @@
+apply plugin: "groovy"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'com.github.kittinunf.fuel:fuel:1.4.0'
+}
