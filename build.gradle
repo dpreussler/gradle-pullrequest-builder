@@ -34,15 +34,22 @@ signing {
 }
 
 publishing {
+
     publications {
-        mavenJava(MavenPublication) {
+
+        mavenCustom(MavenPublication) {
             groupId 'de.jodamob.gradle'
             artifactId 'git-pullrequest-builder'
-            description 'Gradle plugin to commit, push local files xand create pull request on github'
             version '1.0rc1'
-            from components.java
+
+            artifact "$buildDir/libs/gradle-pullrequest-builder.jar"
+            artifact javadocJar
+            artifact sourcesJar
 
             pom.withXml {
+
+                asNode().appendNode('description', 'Gradle plugin to commit, push local files xand create pull request on github')
+                asNode().appendNode('url', 'https://github.com/dpreussler/gradle-pullrequest-builder')
 
                 // SCM
                 def scm = asNode().appendNode('scm')
