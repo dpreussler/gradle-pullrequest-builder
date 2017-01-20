@@ -1,4 +1,4 @@
-package de.preusslerpark.gradle
+package de.jodamob.gradle
 
 import com.github.kittinunf.fuel.Fuel
 import groovy.transform.PackageScope
@@ -13,7 +13,7 @@ class PullRequestBuilderPlugin implements Plugin<Project> {
 
     @PackageScope static final String GIT_TASK = 'gitCommit'
     @PackageScope static final String PR_TASK = 'gitPullRequest'
-    def String branchName
+    String branchName
 
     @Override
     void apply(Project project) {

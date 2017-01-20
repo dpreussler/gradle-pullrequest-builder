@@ -1,4 +1,4 @@
-package de.preusslerpark.gradle
+package de.jodamob.gradle
 
 import org.gradle.api.Project
 
