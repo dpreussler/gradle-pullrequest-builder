@@ -1,5 +1,6 @@
 apply plugin: "groovy"
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 repositories {
     mavenLocal()
@@ -12,13 +13,55 @@ dependencies {
     compile 'com.github.kittinunf.fuel:fuel:1.4.0'
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId 'de.jodamob.gradle'
             artifactId 'git-pullrequest-builder'
+            description 'Gradle plugin to commit, push local files xand create pull request on github'
             version '1.0rc1'
             from components.java
+
+            pom.withXml {
+
+                // SCM
+                def scm = asNode().appendNode('scm')
+                scm.appendNode('connection', 'scm:git@github.com:dpreussler/gradle-pullrequest-builder.git')
+                scm.appendNode('developerConnection', 'scm:git@github.com:dpreussler/gradle-pullrequest-builder.git')
+                scm.appendNode('url', 'https://github.com/dpreussler/gradle-pullrequest-builder')
+                scm.appendNode('tag', 'HEAD')
+
+                // Developers
+                def developer = asNode().appendNode('developers').appendNode('developer')
+                developer.appendNode('id', 'dpreussler')
+                developer.appendNode('name', 'Danny Preussler')
+
+                // Licenses
+                def license = asNode().appendNode('licenses').appendNode('license')
+                license.appendNode('name', 'The MIT License (MIT)')
+                license.appendNode('url', 'https://github.com/dpreussler/jodamoblog/blob/master/LICENSE')
+                license.appendNode('distribution', 'repo')
+            }
         }
     }
 
