@@ -12,15 +12,17 @@ Meant as part of CI jobs that need to change code.
 
 ```groovy
 buildscript {
-    repositories {
-        jcenter()
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    dependencies {
-        classpath 'de.jodamob.gradle:gradle-pullrequest-builder:<version>'
-    }
+  }
+  dependencies {
+    classpath "gradle.plugin.de.jodamob.gradle:gradle-pullrequest-builder:1.0.RC1"
+  }
 }
 
-apply plugin: 'de.jodamob.gradle.github'
+apply plugin: "de.jodamob.gradle.github"
 ```
 
 ### Configuration

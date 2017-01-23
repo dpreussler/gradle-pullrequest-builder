@@ -14,7 +14,7 @@ apply plugin: "groovy"
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version = '1.0.RC1'
+version = '1.0.RC2'
 group = 'de.jodamob.gradle'
 
 repositories {
