@@ -1,12 +1,28 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
+    }
+}
+
+apply plugin: "com.gradle.plugin-publish"
 apply plugin: "groovy"
 apply plugin: 'maven'
 apply plugin: 'signing'
+
+version = '1.0.RC1'
+group = 'de.jodamob.gradle'
 
 repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
 }
+
 dependencies {
     compile gradleApi()
     compile localGroovy()
@@ -31,6 +47,20 @@ artifacts {
 
 signing {
     sign configurations.archives
+}
+
+pluginBundle {
+    website = 'https://github.com/dpreussler/gradle-pullrequest-builder'
+    vcsUrl = 'https://github.com/dpreussler/gradle-pullrequest-builder.git'
+    description = 'Gradle plugin to commit, push local files xand create pull request on github'
+    tags = ['git', 'github']
+
+    plugins {
+        PullRequestBuilderPlugin {
+            id = 'de.jodamob.gradle.github'
+            displayName = 'Gradle Github PullRequest builder'
+        }
+    }
 }
 
 uploadArchives {

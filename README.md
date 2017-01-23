@@ -16,11 +16,11 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.jodamob.gradle:gradle-pullrequest-builder:<version>'
+        classpath 'de.jodamob.gradle:gradle-pullrequest-builder:<version>'
     }
 }
 
-apply plugin: 'org.jodamob.gradle.gradle-pullrequest-builder'
+apply plugin: 'de.jodamob.gradle.github'
 ```
 
 ### Configuration
